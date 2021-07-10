@@ -52,6 +52,8 @@ class Handler
             'line' => $line,
             'php_error_level' => $level,
         ]);
+
+        return true;
     }
 
     public function handleShutdown()

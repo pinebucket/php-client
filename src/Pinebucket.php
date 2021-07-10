@@ -7,6 +7,7 @@ namespace Pinebucket\Client;
 class Pinebucket
 {
     private const URL = 'https://input.pinebucket.com';
+    private const JSON_FLAGS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR;
 
     /**
      * @var string
@@ -65,11 +66,11 @@ class Pinebucket
             CURLOPT_TIMEOUT => 1,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => json_encode($entries),
+            CURLOPT_POSTFIELDS => json_encode($entries, self::JSON_FLAGS),
             CURLOPT_RETURNTRANSFER => true,
         ]);
 
-        $server_output = curl_exec($this->curl);
+        curl_exec($this->curl);
         $statusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
         return 200 === (int) $statusCode;
