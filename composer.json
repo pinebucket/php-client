@@ -1,0 +1,30 @@
+{
+    "name": "pinebucket/php-client",
+    "description": "A small PHP client for pinebucket.com",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nyholm",
+            "email": "tobias.nyholm@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pinebucket\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pinebucket\\Client\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "symfony/error-handler": "^5.3",
+        "filp/whoops": "^2.13"
+    }
+}
