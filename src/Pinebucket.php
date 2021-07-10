@@ -19,7 +19,7 @@ class Pinebucket
      */
     private $curl;
 
-    public function __construct(string $projectSecret)
+    final public function __construct(string $projectSecret)
     {
         $this->projectSecret = $projectSecret;
     }
