@@ -24,7 +24,7 @@
         }
     },
     "require-dev": {
-        "symfony/error-handler": "^5.3",
-        "filp/whoops": "^2.13"
+        "monolog/monolog": "^2.3",
+        "psr/log": "^1.1"
     }
 }
