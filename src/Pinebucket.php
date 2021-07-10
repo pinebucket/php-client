@@ -7,7 +7,7 @@ namespace Pinebucket\Client;
 class Pinebucket
 {
     private const URL = 'https://input.pinebucket.com';
-    private const JSON_FLAGS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR;
+    protected const JSON_FLAGS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR;
 
     /**
      * @var string
@@ -19,7 +19,7 @@ class Pinebucket
      */
     private $curl;
 
-    public function __construct(string $projectSecret)
+    final public function __construct(string $projectSecret)
     {
         $this->projectSecret = $projectSecret;
     }
@@ -33,7 +33,7 @@ class Pinebucket
 
     public static function register(string $projectSecret)
     {
-        $pinebucket = new self($projectSecret);
+        $pinebucket = new static($projectSecret);
         $handler = new Handler($pinebucket);
         register_shutdown_function([$handler, 'handleShutdown']);
         $handler->setNextExceptionHandler(set_exception_handler([$handler, 'handleException']));

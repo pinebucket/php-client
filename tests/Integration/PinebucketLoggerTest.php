@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pinebucket\Client\Tests;
+namespace Pinebucket\Client\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
 use Pinebucket\Client\Integration\PinebucketLogger;
