@@ -41,11 +41,18 @@ class Pinebucket
         $handler->setNextErrorHandler(set_error_handler([$handler, 'handleError'], 0x1FFF | 0));
     }
 
+    /**
+     * This will insert one data row.
+     * Example input could be `['message'=>'An exception was thrown']`.
+     */
     public function sendSingle(array $entry): bool
     {
-        return $this->sendMultiple(['items' => [$entry]]);
+        return $this->sendMultiple([$entry]);
     }
 
+    /**
+     * Insert one or more data rows.
+     */
     public function sendMultiple(array $entries): bool
     {
         if (!$this->curl) {
@@ -66,7 +73,7 @@ class Pinebucket
             CURLOPT_TIMEOUT => 1,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => json_encode($entries, self::JSON_FLAGS),
+            CURLOPT_POSTFIELDS => json_encode(['items' => $entries], self::JSON_FLAGS),
             CURLOPT_RETURNTRANSFER => true,
         ]);
 
