@@ -13,7 +13,14 @@ namespace Pinebucket\Client;
  */
 class Handler
 {
+    /**
+     * @var callable|null
+     */
     private $nextExceptionHandler;
+
+    /**
+     * @var callable|null
+     */
     private $nextErrorHandler;
 
     /**
@@ -44,6 +51,10 @@ class Handler
         }
 
         $this->pinebucket->sendSingle($entry);
+
+        if ($handler = $this->nextExceptionHandler) {
+            $handler($exception);
+        }
     }
 
     public function handleError(int $level, string $message, string $file = null, int $line = null): bool
@@ -55,6 +66,10 @@ class Handler
             'php_error_level' => $level,
         ]);
 
+        if ($handler = $this->nextErrorHandler) {
+            return $handler($level, $message, $file, $level);
+        }
+
         return true;
     }
 
@@ -62,7 +77,12 @@ class Handler
     {
         $error = error_get_last();
         if (is_array($error)) {
-            $this->handleError($error['type'], $error['message'], $error['file'], $error['line']);
+            $this->pinebucket->sendSingle([
+                'message' => $error['message'],
+                'file' => $error['file'],
+                'line' => $error['line'],
+                'php_error_level' => $error['type'],
+            ]);
         }
     }
 

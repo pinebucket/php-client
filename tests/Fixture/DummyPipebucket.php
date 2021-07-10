@@ -10,7 +10,7 @@ class DummyPipebucket extends Pinebucket
 {
     public function sendMultiple(array $entries): bool
     {
-        echo json_encode(['items' => $entries], self::JSON_FLAGS);
+        echo json_encode(['items' => $entries], self::JSON_FLAGS).PHP_EOL;
 
         return true;
     }

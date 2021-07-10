@@ -1,5 +1,5 @@
 --TEST--
-Test catching errors
+Test logging errors
 --FILE--
 <?php
 use Pinebucket\Client\Tests\Fixture\DummyPipebucket;
