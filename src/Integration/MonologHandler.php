@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Pinebucket\Client\Integration;
 
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\ScalarFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 use Pinebucket\Client\Pinebucket;
@@ -13,7 +15,7 @@ use Pinebucket\Client\Pinebucket;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class PinebucketMonologHandler extends AbstractProcessingHandler
+class MonologHandler extends AbstractProcessingHandler
 {
     private $pinebucket;
 
@@ -25,6 +27,17 @@ class PinebucketMonologHandler extends AbstractProcessingHandler
 
     protected function write(array $record): void
     {
-        $this->pinebucket->sendSingle($record['formatted']);
+        if (is_array($record['formatted'])) {
+            $entry = $record['formatted'];
+        } else {
+            $entry = ['message' => $record['formatted']];
+        }
+
+        $this->pinebucket->sendSingle($entry);
+    }
+
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new ScalarFormatter();
     }
 }
