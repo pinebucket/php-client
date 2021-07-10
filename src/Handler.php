@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-
 namespace Pinebucket\Client;
-
 
 /**
  * Make sure we can chain handlers.
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ *
  * @internal
  */
 class Handler
@@ -27,7 +26,6 @@ class Handler
         $this->pinebucket = $pinebucket;
     }
 
-
     public function handleException(\Throwable $exception)
     {
         $entry = [
@@ -38,7 +36,7 @@ class Handler
         ];
 
         $previous = $exception->getPrevious();
-        if ($previous !== null) {
+        if (null !== $previous) {
             $entry['previous_exception_message'] = $previous->getMessage();
             $entry['previous_exception'] = $previous;
         }

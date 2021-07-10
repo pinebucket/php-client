@@ -40,12 +40,12 @@ class Pinebucket
         $handler->setNextErrorHandler(set_error_handler([$handler, 'handleError'], 0x1FFF | 0));
     }
 
-    public function sendSingle(array $entry)
+    public function sendSingle(array $entry): bool
     {
-        $this->sendMultiple(['items' => [$entry]]);
+        return $this->sendMultiple(['items' => [$entry]]);
     }
 
-    public function sendMultiple(array $entries)
+    public function sendMultiple(array $entries): bool
     {
         if (!$this->curl) {
             $this->curl = curl_init();
@@ -62,7 +62,6 @@ class Pinebucket
             CURLOPT_URL => self::URL,
             CURLOPT_CONNECTTIMEOUT => 1,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_FORBID_REUSE => false,
             CURLOPT_TIMEOUT => 1,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POST => 1,
@@ -71,7 +70,8 @@ class Pinebucket
         ]);
 
         $server_output = curl_exec($this->curl);
+        $statusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 
-        var_dump($server_output);
+        return 200 === (int) $statusCode;
     }
 }
