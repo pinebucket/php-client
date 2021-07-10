@@ -1,7 +1,7 @@
 {
     "name": "pinebucket/php-client",
-    "description": "A small PHP client for pinebucket.com",
     "type": "library",
+    "description": "A small PHP client for pinebucket.com",
     "license": "MIT",
     "authors": [
         {
@@ -13,6 +13,10 @@
         "php": ">=7.2",
         "ext-curl": "*"
     },
+    "require-dev": {
+        "monolog/monolog": "^2.3",
+        "psr/log": "^1.1"
+    },
     "autoload": {
         "psr-4": {
             "Pinebucket\\Client\\": "src/"
@@ -22,9 +26,5 @@
         "psr-4": {
             "Pinebucket\\Client\\Tests\\": "tests/"
         }
-    },
-    "require-dev": {
-        "monolog/monolog": "^2.3",
-        "psr/log": "^1.1"
     }
 }
