@@ -10,4 +10,4 @@ DummyPipebucket::register('xyz');
 
 throw new RuntimeException('My exception');
 --EXPECT--
-{"items":[{"message":"My exception","file":"Standard input code","line":8,"exception_trace":"#0 {main}","exception_code":0}]}
+{"items":[{"message":"My exception","file":"Standard input code","line":8,"exception_class":"RuntimeException","exception_trace":"#0 {main}","exception_code":0}]}

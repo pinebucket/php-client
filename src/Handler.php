@@ -39,6 +39,7 @@ class Handler
             'message' => $exception->getMessage(),
             'file' => $exception->getFile(),
             'line' => $exception->getLine(),
+            'exception_class' => get_class($exception),
             'exception_trace' => $exception->getTraceAsString(),
             'exception_code' => $exception->getCode(),
         ];
@@ -46,6 +47,7 @@ class Handler
         $previous = $exception->getPrevious();
         if (null !== $previous) {
             $entry['previous_exception_message'] = $previous->getMessage();
+            $entry['previous_exception_class'] = get_class($previous);
             $entry['previous_exception_trace'] = $previous->getTraceAsString();
             $entry['previous_exception_code'] = $previous->getCode();
         }
